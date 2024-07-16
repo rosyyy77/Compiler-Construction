@@ -1,0 +1,25 @@
+start ::= program SCANEOF
+program ::= BEGIN_ statement_list END
+
+statement_list ::= statement statement_list'
+statement_list' ::= statement statement_list'
+statement_list' ::= ''
+
+statement ::= ID ASSIGNOP expression SEMICOLON
+statement ::= READ LPAREN id_list RPAREN SEMICOLON
+statement ::= WRITE LPAREN expr_list RPAREN SEMICOLON
+id_list ::= ID
+if_list ::= id_list COMMA ID
+
+expr_list ::= expression expr_list'
+expr_list' ::= COMMA expression expr_list'
+expr_list' ::= ''
+
+expression ::= primary expression_tail
+expression_tail ::= PLUSOP primary expression_tail
+expression_tail ::= MINUSOP primary expression_tail
+expression_tail ::= ''
+
+primary ::= LPAREN expression RPAREN
+primary ::= ID
+primary ::= INTLITERAL
